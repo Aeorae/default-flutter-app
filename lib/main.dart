@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final fedoraeProvider = Provider((_) => 'Fedorae Riverpod Tabs');
 
 void main() {
-  runApp(TabBarDemo());
+  runApp(ProviderScope(child: TabBarDemo()));
 }
 
-class TabBarDemo extends StatelessWidget {
+class TabBarDemo extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final value = ref.watch(fedoraeProvider);
+
     return MaterialApp(
       home: DefaultTabController(
         length: 3,
@@ -19,7 +24,7 @@ class TabBarDemo extends StatelessWidget {
                 Tab(icon: Icon(Icons.directions_bike)),
               ],
             ),
-            title: Text('Fedorae Tabs Demo'),
+            title: Text(value),
           ),
           body: TabBarView(
             children: [
